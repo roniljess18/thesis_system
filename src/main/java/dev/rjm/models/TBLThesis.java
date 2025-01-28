@@ -13,15 +13,17 @@ public class TBLThesis extends FXModel {
     private FXIntegerProperty year;
     private FXIntegerProperty month;
     //private FXObjectProperty<Month> month;
-    private FXObjectProperty<Degree> deg_id;
+    //private FXObjectProperty<Degree> deg_id;
+    private FXIntegerProperty deg_id;
 
-    public TBLThesis(Integer thesis_id, String title, Integer year, Integer month, Degree deg_id) {
+    public TBLThesis(Integer thesis_id, String title, Integer year, Integer month, Integer deg_id) {
         this.thesis_id = new FXIntegerProperty(thesis_id);
         this.title = new FXStringProperty(title);
         this.year = new FXIntegerProperty(year);
         this.month = new FXIntegerProperty(month);
         //this.month = new FXObjectProperty<>(month);
-        this.deg_id = new FXObjectProperty<>(deg_id);
+        //this.deg_id = new FXObjectProperty<>(deg_id);
+        this.deg_id = new FXIntegerProperty(deg_id);
 
         track_properties(this.thesis_id, this.title, this.year, this.month, this.deg_id);
     }
@@ -91,15 +93,26 @@ public class TBLThesis extends FXModel {
     // }
 
     // deg_id
-    public FXObjectProperty<Degree> deg_idProperty() {
+    // public FXObjectProperty<Degree> deg_idProperty() {
+    //     return deg_id;
+    // }
+
+    // public Degree getDegId() {
+    //     return deg_idProperty().get();
+    // }
+
+    // public void setDegId(Degree deg_id) {
+    //     deg_idProperty().set(deg_id);
+    // }
+    public FXIntegerProperty deg_idProperty() {
         return deg_id;
     }
 
-    public Degree getDegId() {
+    public Integer getDegId() {
         return deg_idProperty().get();
     }
 
-    public void setDegId(Degree deg_id) {
+    public void setDegId(Integer deg_id) {
         deg_idProperty().set(deg_id);
     }
 

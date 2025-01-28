@@ -19,7 +19,7 @@ import javafx.collections.ObservableList;
 public class TBLThesisDAO {
     public static String TABLE = "tblthesis";
     public static final DBService DB = App.DB_THESIS;
-    public static ObservableList<Degree> DEGREE_LIST = App.COLLECTIONS_REGISTER.getList("DEGREE");
+    //public static ObservableList<Degree> DEGREE_LIST = App.COLLECTIONS_REGISTER.getList("DEGREE");
 
     private static TBLThesis data(CachedRowSet crs) {
         try {
@@ -27,14 +27,15 @@ public class TBLThesisDAO {
             String title = crs.getString("Title");
             Integer year = crs.getInt("Year");
 
-            Degree deg_id = DEGREE_LIST.stream().filter(o -> {
-                try {
-                    return o.getDegreeID().equals(crs.getObject("DegID"));
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    return false;
-                }
-            }).findFirst().get();
+            // Degree deg_id = DEGREE_LIST.stream().filter(o -> {
+            //     try {
+            //         return o.getDegreeID().equals(crs.getObject("DegID"));
+            //     } catch (SQLException e) {
+            //         e.printStackTrace();
+            //         return false;
+            //     }
+            // }).findFirst().get();
+            Integer deg_id = crs.getInt("DegID"); 
             Integer month = crs.getInt("Month");
             //Month month = Month.values()[crs.getInt("Month")];
 
@@ -72,5 +73,24 @@ public class TBLThesisDAO {
             e.printStackTrace();
         }
         return list;
+    }
+    
+    public static void insert(TBLThesis tblThesis) {
+        DB.insert(TABLE, paramlist(tblThesis));
+    }
+
+    public static void delete(TBLThesis thesis) {
+        DB.delete(TABLE, new DBParam(DBType.NUMERIC, "ID", thesis.getThesisId()));
+    }
+
+    public static void update(TBLThesis thesis) {
+
+        DBParam[] params = paramlist(thesis);
+
+        for (int i = 0; i <= 4; i++) {
+            DB.update(TABLE, new DBParam(DBType.NUMERIC, "ID",
+                    thesis.getThesisId()), params[i]);
+        }
+
     }
 }

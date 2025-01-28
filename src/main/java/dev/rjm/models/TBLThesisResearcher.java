@@ -1,20 +1,54 @@
 package dev.rjm.models;
 
-import dev.rjm.enums.Role;
 import dev.sol.core.application.FXModel;
 import dev.sol.core.properties.beans.FXObjectProperty;
+import dev.sol.core.properties.beans.FXStringProperty;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.TableCell;
 
 public class TBLThesisResearcher extends FXModel{
+     public static class STUDENT_TABLECELL extends TableCell<TBLThesisResearcher, TBLStudent> {
+        @Override
+        protected void updateItem(TBLStudent item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if (item == null || empty) {
+                setText(null);
+                setGraphic(null);
+                return;
+            }
+            setGraphic(new Label(String.valueOf(item.getStudentId())));
+        }
+
+    }
+
+    public static class THESIS_TABLECELL extends TableCell<TBLThesisResearcher, TBLThesis> {
+        @Override
+        protected void updateItem(TBLThesis item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if (item == null || empty) {
+                setText(null);
+                setGraphic(null);
+                return;
+            }
+            setGraphic(new Label(String.valueOf(item.getThesisId())));
+        }
+
+    }
+    
+
 
     private FXObjectProperty<TBLThesis> tid;
     private FXObjectProperty<TBLStudent> rid;
-    private FXObjectProperty<Role> role;
+    private FXStringProperty role;
 
 
-    public TBLThesisResearcher(TBLThesis tid, TBLStudent rid, Role role){
+    public TBLThesisResearcher(TBLThesis tid, TBLStudent rid, String role){
         this.tid = new FXObjectProperty<>(tid);
         this.rid = new FXObjectProperty<>(rid);
-        this.role = new FXObjectProperty<>(role);
+        this.role = new FXStringProperty(role);
 
         track_properties(this.tid, this.rid, this.role);
     }
@@ -42,13 +76,13 @@ public class TBLThesisResearcher extends FXModel{
     }
 
     // role
-    public FXObjectProperty<Role> roleProperty(){
+    public FXStringProperty roleProperty(){
         return role;
     }
-    public Role getRole(){
+    public String getRole(){
         return roleProperty().get();
     }
-    public void setRole(Role role){
+    public void setRole(String role){
         roleProperty().set(role);
     }
 

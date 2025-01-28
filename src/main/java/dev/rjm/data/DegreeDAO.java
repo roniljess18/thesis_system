@@ -53,4 +53,23 @@ public class DegreeDAO {
         return list;
     }
     
+    public static void insert(Degree degree) {
+        DB.insert(TABLE, paramlist(degree));
+    }
+
+    public static void delete(Degree degree) {
+        DB.delete(TABLE, new DBParam(DBType.NUMERIC, "degreeID", degree.getDegreeID()));
+    }
+
+    public static void update(Degree degree) {
+
+        DBParam[] params = paramlist(degree);
+
+        for (int i = 0; i <= 17; i++) {
+            DB.update(TABLE, new DBParam(DBType.NUMERIC, "degreeID",
+                    degree.getDegreeID()), params[i]);
+        }
+
+    }
+    
 }

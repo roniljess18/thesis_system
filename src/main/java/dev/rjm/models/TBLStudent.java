@@ -3,13 +3,32 @@ package dev.rjm.models;
 import dev.sol.core.application.FXModel;
 import dev.sol.core.properties.beans.FXIntegerProperty;
 import dev.sol.core.properties.beans.FXStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 
 public class TBLStudent extends FXModel {
+
+    // public static class LIST_CELL extends ListCell<TBLStudent>{
+    //     @Override
+    //     protected void updateItem(TBLStudent tblStudent, boolean empty){
+    //         super.updateItem(tblStudent, empty);
+
+    //         if(tblStudent == null || empty){
+    //             setText(null);
+    //             setGraphic(null);
+    //             return;
+    //         }
+    //         setGraphic(new Label(tblStudent.getfullname()));
+
+    //     }
+    // }
 
     private FXIntegerProperty student_id;
     private FXStringProperty surname;
     private FXStringProperty firstname;
     private FXStringProperty Ml;
+    private FXStringProperty fullname;
     
 
     public TBLStudent(Integer student_id, String surname, String firstname, String Ml) {
@@ -17,8 +36,9 @@ public class TBLStudent extends FXModel {
         this.surname = new FXStringProperty(surname);
         this.firstname = new FXStringProperty(firstname);
         this.Ml = new FXStringProperty(Ml);
+        this.fullname = new FXStringProperty(surname + ", " + firstname + ", " + Ml); 
 
-        track_properties(this.student_id, this.surname, this.firstname, this.Ml);
+        track_properties(this.student_id, this.surname, this.firstname, this.Ml, this.fullname);
     }
 
     // student_id
@@ -72,18 +92,22 @@ public class TBLStudent extends FXModel {
     public void setMl(String Ml) {
         MlProperty().set(Ml);
     }
-
-   public String getfullname(){
-        return getSurname() + ", " + getFirstname() + ", " + getMl();
-   }
+    //fullname
    
-   public String fullnameProperty() {
-       return fullnameProperty();
-   }
+
+    public FXStringProperty fullnameProperty(){
+        return this.fullname;
+    }
+    public String getFullname(){
+        return fullnameProperty().get();
+    }
+    public String fullname(){
+        return surnameProperty().get() + ", " + firstnameProperty().get() + ", " + MlProperty().get();
+    }
 
     @Override
     public FXModel clone() {
-        TBLStudent tblStudent = new TBLStudent(getStudentId(), getSurname(), getFirstname(), getMl());
+        TBLStudent tblStudent =new TBLStudent(getStudentId(), getSurname(), getFirstname(), getMl());
 
         return tblStudent;
     }
@@ -91,11 +115,16 @@ public class TBLStudent extends FXModel {
 
     @Override
     public void copy(FXModel arg0) {
+        if(arg0 instanceof TBLStudent){
         TBLStudent c = (TBLStudent) arg0;
-
+    
         setStudentId(c.getStudentId());
         setSurname(c.getSurname());
         setFirstname(c.getFirstname());
         setMl(c.getMl());
+        // setFullname(c.getfullname());
+        }else {
+            throw new IllegalArgumentException("Argument must be an instance of Student");
+        }
     }
 }

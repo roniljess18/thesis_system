@@ -22,6 +22,8 @@ public class TBLStudentDAO {
             String surname = crs.getString("Surname");
             String firstname = crs.getString("FirstName");
             String Ml = crs.getString("MI");
+            
+            
 
             return new TBLStudent(student_id, surname, firstname, Ml);
             
@@ -54,6 +56,26 @@ public class TBLStudentDAO {
             e.printStackTrace();
         }
         return list;
+    }
+    
+    public static void insert(TBLStudent student) {
+
+        DB.insert(TABLE, paramlist(student));
+    }
+
+    public static void delete(TBLStudent student) {
+        DB.delete(TABLE, new DBParam(DBType.NUMERIC, "ID", student.getStudentId()));
+    }
+
+    public static void update(TBLStudent student) {
+
+        DBParam[] params = paramlist(student);
+
+        for (int i = 0; i <= 3; i++) {
+            DB.update(TABLE, new DBParam(DBType.NUMERIC, "ID",
+                    student.getStudentId()), params[i]);
+        }
+
     }
     
 }

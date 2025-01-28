@@ -6,7 +6,7 @@ import dev.sol.core.properties.beans.FXStringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 
-public class Degree extends FXModel{
+public class Degree extends FXModel {
     public static class LIST_CELL extends ListCell<Degree> {
         @Override
         protected void updateItem(Degree degree, boolean empty) {
@@ -23,11 +23,10 @@ public class Degree extends FXModel{
 
     }
 
-
     private FXIntegerProperty degreeID;
     private FXStringProperty degree;
 
-    public Degree(Integer degreeID, String degree){
+    public Degree(Integer degreeID, String degree) {
         this.degreeID = new FXIntegerProperty(degreeID);
         this.degree = new FXStringProperty(degree);
 
@@ -35,24 +34,28 @@ public class Degree extends FXModel{
     }
 
     // degreeID
-    public FXIntegerProperty degreeIDProperty(){
+    public FXIntegerProperty degreeIDProperty() {
         return degreeID;
     }
-    public Integer getDegreeID(){
+
+    public Integer getDegreeID() {
         return degreeIDProperty().get();
     }
-    public void setDegreeID(Integer degreeID){
+
+    public void setDegreeID(Integer degreeID) {
         degreeIDProperty().set(degreeID);
     }
 
     // degree
-    public FXStringProperty degreeProperty(){
+    public FXStringProperty degreeProperty() {
         return degree;
     }
-    public String getDegree(){
+
+    public String getDegree() {
         return degreeProperty().get();
     }
-    public void setDegree(String degree){
+
+    public void setDegree(String degree) {
         degreeProperty().set(degree);
     }
 
@@ -61,7 +64,7 @@ public class Degree extends FXModel{
         Degree degree = new Degree(getDegreeID(), getDegree());
 
         return degree;
-        
+
     }
 
     @Override
@@ -72,9 +75,11 @@ public class Degree extends FXModel{
         setDegree(c.getDegree());
     }
 
+
+
     // public static Degree valueOf(String degree2) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'valueOf'");
+    // // TODO Auto-generated method stub
+    // throw new UnsupportedOperationException("Unimplemented method 'valueOf'");
     // }
     
 }
